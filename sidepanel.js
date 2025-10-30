@@ -10,6 +10,28 @@ function renderHeadlines(list, headings) {
   list.innerHTML = '';
   if (headings.length === 0) return;
 
+  // Count headlines per level
+  const levelCounts = {};
+  headings.forEach(h => {
+    const level = parseInt(h.tag[1]);
+    levelCounts[level] = (levelCounts[level] || 0) + 1;
+  });
+
+  // Render total headlines per level
+  const totalHeadings = document.getElementById('total-headings');
+  totalHeadings.innerHTML = '';
+  Object.keys(levelCounts).sort((a, b) => a - b).forEach(level => {
+    const div = document.createElement('div');
+    div.textContent = levelCounts[level];
+    div.classList.add(`total-h${level}`);
+    totalHeadings.appendChild(div);
+  });
+
+  // Add total count
+  const totalDiv = document.createElement('div');
+  totalDiv.textContent = headings.length;
+  totalHeadings.appendChild(totalDiv);
+
   // Helper to create nested ULs for each heading level
   let currentLevel = 1;
   let parents = [list];

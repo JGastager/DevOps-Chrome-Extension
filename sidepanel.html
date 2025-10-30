@@ -118,51 +118,94 @@
       border: 2px solid var(--bg-color);
     }
 
-    .h1::before { 
+    .h1::before,
+    #total-headings div.total-h1::before { 
       background: color-mix(in srgb, var(--h1-color) 20%, transparent);
       color: var(--h1-color);
       content: "H1"; 
     }
-    .h2::before { 
+    .h2::before,
+    #total-headings div.total-h2::before { 
       background: color-mix(in srgb, var(--h2-color) 20%, transparent);
       color: var(--h2-color);
       content: "H2"; 
     }
-    .h3::before { 
+    .h3::before,
+    #total-headings div.total-h3::before { 
       background: color-mix(in srgb, var(--h3-color) 20%, transparent);
       color: var(--h3-color);
       content: "H3"; 
     }
-    .h4::before { 
+    .h4::before,
+    #total-headings div.total-h4::before { 
       background: color-mix(in srgb, var(--h4-color) 20%, transparent);
       color: var(--h4-color);
       content: "H4"; 
     }
-    .h5::before {
+    .h5::before,
+    #total-headings div.total-h5::before { 
       background: color-mix(in srgb, var(--h5-color) 20%, transparent);
       color: var(--h5-color);
       content: "H5"; 
     }
-    .h6::before { 
+    .h6::before,
+    #total-headings div.total-h6::before {
       background: color-mix(in srgb, var(--h6-color) 20%, transparent);
       color: var(--h6-color);
       content: "H6"; 
     }
-    .h7::before { 
+    .h7::before,
+    #total-headings div.total-h7::before { 
       background: color-mix(in srgb, var(--h7-color) 20%, transparent);
       color: var(--h7-color);
       content: "H7"; 
     }
-    .h8::before { 
+    .h8::before,
+    #total-headings div.total-h8::before { 
       background: color-mix(in srgb, var(--h8-color) 20%, transparent);
       color: var(--h8-color);
       content: "H8"; 
     }
-    .h9::before { 
+    .h9::before,
+    #total-headings div.total-h9::before {
       background: color-mix(in srgb, var(--h9-color) 20%, transparent);
       color: var(--h9-color);
       content: "H9"; 
     }
+
+    #total-headings div:last-child::before {
+      background: color-mix(in srgb, var(--base-color) 20%, transparent);
+      color: var(--base-color);
+      content: "Total"; 
+    }
+
+    #total-headings div::before {
+      height: 1.25em;
+      line-height: 1.25;
+      margin-right: 4px;
+      font-weight: 600;
+      margin-bottom: -2px;
+      pointer-events: none;
+      cursor: default;
+      border-radius: 4px;
+      color:var(--bg-color);
+      padding: 1px 3px;
+      border: 2px solid var(--bg-color);
+    }
+
+    #total-headings div {
+      position: relative;
+      min-height: 1.75em; 
+      line-height: 1.75;
+    }
+
+    #total-headings {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
   </style>
 </head>
 <body>
@@ -174,6 +217,7 @@
     </ul>
   </nav>
   <main>
+    <div id="total-headings"></div>
     <h2>Page Headings</h2>
     <ul id="headings"></ul>
   </main>
