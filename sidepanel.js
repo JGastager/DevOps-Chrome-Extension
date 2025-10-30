@@ -10,25 +10,26 @@ function renderHeadlines(list, headings) {
   list.innerHTML = '';
   if (headings.length === 0) return;
 
-  const rootLevel = Math.min(...headings.map(h => parseInt(h.tag[1])));
-  const levelColors = {
-    1: '#0074D9', // Blue
-    2: '#2ECC40', // Green
-    3: '#3D9970', // Olive
-    4: '#39CCCC', // Teal
-    5: '#7FDBFF', // Light Blue
-    6: '#01FF70'  // Neon Green
-  };
 
-  headings.forEach(h => {
+  headings.forEach((h, index) => {
     const li = document.createElement('li');
-    const level = parseInt(h.tag[1]);
-    li.textContent = `${h.tag}: ${h.text}`;
-    li.style.marginLeft = (level - rootLevel) * 15 + 'px';
-    li.style.color = levelColors[level] || '#000';
+    li.textContent = h.text;
+    li.classList.add(h.tag.toLowerCase());
+
+    // ✅ send headline index to content script on click
+    li.addEventListener('click', () => {
+      chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
+        chrome.tabs.sendMessage(tab.id, {
+          action: "goToHeading",
+          index
+        });
+      });
+    });
+
     list.appendChild(li);
   });
 }
+
 
 function updateHeadlines() {
   chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {

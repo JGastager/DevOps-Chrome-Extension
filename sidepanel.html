@@ -3,13 +3,105 @@
 <head>
   <title>Headlines</title>
   <style>
-    body { font-family: sans-serif; padding: 1rem; }
-    ul { padding-left: 1rem; }
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap');
+    
+    :root {
+      --base-color: #202124;
+      --neutral-color: #d5d8db;
+      --h1-color: #6366f1;
+      --h2-color: #0ea5e9;
+      --h3-color: #14b8a6;
+      --h4-color: #22c55e;
+      --h5-color: #84cc16;
+      --h6-color: #eab308;
+      --h7-color: #f59e0b;
+      --h8-color: #f97316;
+      --h9-color: #dc2626;
+    }
+
+    body { font-family: 'Roboto', Arial, sans-serif; padding: 0; margin: 0; font-size: 14px; font-weight: 400; }
+    main { padding: 16px; }
+
+    ul { padding: 0;}
+    li {appearance: none; list-style: none; min-height: 1.2em; line-height: 1.2;}
+
+    [class^="h"] {
+      padding: 3px 4px;
+      color: var(--base-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background-color: var(--base-color);
+      z-index: 1000;
+      color: white;
+      padding: 16px;
+      width: 100%;
+    }
+
+    nav ul {
+      margin: 0;
+      display: flex;
+      gap: 16px;
+    }
+
+    [class^="h"]:hover {
+      background-color: var(--neutral-color);
+    }
+
+    [class^="h"]::before {
+      position: absolute; 
+      left: -4px;
+      top: 50%;
+      transform: translate(-100%, -50%);
+      font-size: 16px;
+      margin-right: 8px;
+      font-weight: 600;
+      margin-bottom: -2px;
+      pointer-events: none;
+      cursor: default;
+    }
+
+    .h1::before { color: var(--h1-color); content: "H1"; }
+    .h2::before { color: var(--h2-color); content: "H2"; }
+    .h3::before { color: var(--h3-color); content: "H3"; }
+    .h4::before { color: var(--h4-color); content: "H4"; }
+    .h5::before { color: var(--h5-color); content: "H5"; }
+    .h6::before { color: var(--h6-color); content: "H6"; }
+    .h7::before { color: var(--h7-color); content: "H7"; }
+    .h8::before { color: var(--h8-color); content: "H8"; }
+    .h9::before { color: var(--h9-color); content: "H9"; }
+
+    .h1 { margin-left: 24px; }
+    .h2 { margin-left: 36px; }
+    .h3 { margin-left: 48px; }
+    .h4 { margin-left: 60px; }
+    .h5 { margin-left: 72px; }
+    .h6 { margin-left: 84px; }
+    .h7 { margin-left: 96px; }
+    .h8 { margin-left: 108px; }
+    .h9 { margin-left: 120px; }
+
+
   </style>
 </head>
 <body>
-  <h2>Page Headings</h2>
-  <ul id="headings"></ul>
+  <nav>
+    <ul>
+      <li>Headliner</li>
+      <li>JSON Viewer</li>
+      <li>Form Prefiller</li>
+    </ul>
+  </nav>
+  <main>
+    <h2>Page Headings</h2>
+    <ul id="headings"></ul>
+  </main>
   <script src="sidepanel.js"></script>
 </body>
 </html>
