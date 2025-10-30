@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Headline Analyzer",
+  "version": "1.0",
+  "description": "Analyzes H1–H6 headings on the current page using the side panel.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "sidePanel"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "Open Headline Analyzer"
+  },
+  "icons": {
+    "48": "icon.png"
+  }
+}
