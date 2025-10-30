@@ -10,13 +10,28 @@ function renderHeadlines(list, headings) {
   list.innerHTML = '';
   if (headings.length === 0) return;
 
+  // Helper to create nested ULs for each heading level
+  let currentLevel = 1;
+  let parents = [list];
 
   headings.forEach((h, index) => {
+    const level = parseInt(h.tag[1]);
+    // Adjust nesting
+    while (level > currentLevel) {
+      const ul = document.createElement('ul');
+      parents[parents.length - 1].appendChild(ul);
+      parents.push(ul);
+      currentLevel++;
+    }
+    while (level < currentLevel) {
+      parents.pop();
+      currentLevel--;
+    }
+
     const li = document.createElement('li');
     li.textContent = h.text;
     li.classList.add(h.tag.toLowerCase());
 
-    // ✅ send headline index to content script on click
     li.addEventListener('click', () => {
       chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
         chrome.tabs.sendMessage(tab.id, {
@@ -26,7 +41,7 @@ function renderHeadlines(list, headings) {
       });
     });
 
-    list.appendChild(li);
+    parents[parents.length - 1].appendChild(li);
   });
 }
 
