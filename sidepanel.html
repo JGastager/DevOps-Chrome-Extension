@@ -103,18 +103,20 @@
     [class^="h"]::before {
       position: absolute; 
       height: 1.25em;
-      line-height: 1.25;
+      display: inline-flex !important;
+      justify-content: center;
+      align-items: center;
       left: -3px;
       top: 50%;
+      line-height: 1;
       transform: translate(-100%, -50%);
       margin-right: 8px;
       font-weight: 600;
-      margin-bottom: -2px;
       pointer-events: none;
       cursor: default;
       border-radius: 4px;
       color:var(--bg-color);
-      padding: 1px 3px;
+      padding: 1px 4px;
       border: 2px solid var(--bg-color);
     }
 
@@ -181,16 +183,19 @@
 
     #total-headings div::before {
       height: 1.25em;
-      line-height: 1.25;
+      line-height: 1;
+      display: inline-flex !important;
+      justify-content: center;
+      align-items: center;
       margin-right: 4px;
       font-weight: 600;
-      margin-bottom: -2px;
       pointer-events: none;
       cursor: default;
       border-radius: 4px;
       color:var(--bg-color);
-      padding: 1px 3px;
+      padding: 1px 4px;
       border: 2px solid var(--bg-color);
+      display: block;
     }
 
     #total-headings div {
