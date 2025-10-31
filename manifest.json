@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Headliner",
-  "version": "0.1",
-  "description": "Analyzes H1–H6 headings on the current page using the side panel.",
+  "version": "1.0.0",
+  "description": "Analyzes headings on the current page using the side panel.",
   "permissions": [
     "activeTab",
     "scripting",
