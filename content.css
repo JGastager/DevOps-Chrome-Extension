@@ -1,29 +1,30 @@
 :root {
-    --devops-base-color: #171717;
-    --devops-neutral-color: #d5d8db;
-    --devops-h1-color: #6366f1;
-    --devops-h2-color: #0ea5e9;
-    --devops-h3-color: #14b8a6;
-    --devops-h4-color: #22c55e;
-    --devops-h5-color: #84cc16;
-    --devops-h6-color: #eab308;
-    --devops-h7-color: #f59e0b;
-    --devops-h8-color: #f97316;
-    --devops-h9-color: #dc2626;
+    --headliner-base-color: #171717;
+    --headliner-neutral-color: #d5d8db;
+    --headliner-h1-color: #6366f1;
+    --headliner-h2-color: #0ea5e9;
+    --headliner-h3-color: #14b8a6;
+    --headliner-h4-color: #22c55e;
+    --headliner-h5-color: #84cc16;
+    --headliner-h6-color: #eab308;
+    --headliner-h7-color: #f59e0b;
+    --headliner-h8-color: #f97316;
+    --headliner-h9-color: #dc2626;
+    --headliner-highlight-color: var(--headliner-neutral-color);
 }
 
-.flash-highlight {
+html body .headliner-highlight {
   animation: flash 2s ease !important;
   border-radius: 4px !important;
+  color: var(--headliner-highlight-color) !important;
 }
 
 @keyframes flash {
-    0% { background-color: transparent; }
-    14% { background-color: var(--devops-h1-color); }
-    28% { background-color: transparent; }
-    42% { background-color: var(--devops-h1-color); }
-    56% { background-color: transparent; }
-    70% { background-color: var(--devops-h1-color); }
-    84% { background-color: transparent; }
-    100% { background-color: transparent; }
+    0% { background-color: transparent; backdrop-filter: blur(0px);}
+    16% {  background-color: color-mix(in srgb, var(--headliner-highlight-color) 20%, transparent); backdrop-filter: blur(4px); }
+    33% { background-color: transparent; backdrop-filter: blur(0px);}
+    50% { background-color: color-mix(in srgb, var(--headliner-highlight-color) 20%, transparent); backdrop-filter: blur(4px); }
+    66% { background-color: transparent; backdrop-filter: blur(0px);}
+    84% { background-color: color-mix(in srgb, var(--headliner-highlight-color) 20%, transparent);  backdrop-filter: blur(4px); }
+    100% { background-color: transparent; backdrop-filter: blur(0px);}
 }

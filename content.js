@@ -1,16 +1,29 @@
-console.log("✅ Headliner content script loaded");
-
 chrome.runtime.onMessage.addListener((message) => {
   if (message.action === "goToHeading") {
     const headings = Array.from(document.body.querySelectorAll('h1, h2, h3, h4, h5, h6'));
     const el = headings[message.index];
     if (!el) return;
 
-    // ✅ Scroll to the element smoothly
+    // Smooth scroll to element
     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-    // ✅ Blink red background animation
-    el.classList.add("flash-highlight");
-    setTimeout(() => el.classList.remove("flash-highlight"), 2000);
+    // Determine heading level (1–6)
+    const level = el.tagName[1]; // e.g. "H2" → "2"
+
+    // Set highlight color dynamically
+    const highlightColor = getComputedStyle(document.documentElement)
+      .getPropertyValue(`--headliner-h${level}-color`)
+      .trim();
+
+    document.documentElement.style.setProperty('--headliner-highlight-color', highlightColor);
+
+    // Trigger blinking animation
+    el.classList.add("headliner-highlight");
+
+    // Cleanup after 2 seconds
+    setTimeout(() => {
+      el.classList.remove("headliner-highlight");
+      document.documentElement.style.removeProperty('--headliner-highlight-color');
+    }, 2000);
   }
 });

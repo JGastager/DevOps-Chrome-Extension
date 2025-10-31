@@ -6,24 +6,28 @@
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap');
     
     :root {
-      --bg-color: #171717;
-      --base-color: #f0f0f0;
-      --neutral-color: #313131;
-      --h1-color: #6366f1;
-      --h2-color: #0ea5e9;
-      --h3-color: #14b8a6;
-      --h4-color: #22c55e;
-      --h5-color: #84cc16;
-      --h6-color: #eab308;
-      --h7-color: #f59e0b;
-      --h8-color: #f97316;
-      --h9-color: #dc2626;
+      --headliner-bg-color: #171717;
+      --headliner-base-color: #f0f0f0;
+      --headliner-neutral-color: #313131;
+      --headliner-h1-color: #6366f1;
+      --headliner-h2-color: #0ea5e9;
+      --headliner-h3-color: #14b8a6;
+      --headliner-h4-color: #22c55e;
+      --headliner-h5-color: #84cc16;
+      --headliner-h6-color: #eab308;
+      --headliner-h7-color: #f59e0b;
+      --headliner-h8-color: #f97316;
+      --headliner-h9-color: #dc2626;
     }
 
     * {
       box-sizing: border-box;
       margin: unset;
       padding: unset;
+    }
+
+    ul {
+      list-style: none;
     }
 
     h1,
@@ -39,34 +43,34 @@
     }
 
     body { 
-      background: var(--neutral-color); 
+      background: var(--headliner-neutral-color); 
       font-family: 'Roboto', Arial, sans-serif; 
       padding: 0; 
       margin: 0; 
       font-size: 14px; 
       font-weight: 400; 
-      color: var(--base-color); 
+      color: var(--headliner-base-color); 
       height: 100%;
       overflow: hidden;
     }
 
     main { 
       padding: 16px; 
-      background: var(--bg-color); 
-      border-radius: 8px;
+      background: var(--headliner-bg-color); 
+      border-radius: 4px;
       overflow-y: auto;
       height: calc(100% - 48px);
-      border: 1px solid #555555;
+      /* border: 1px solid #555555; */
     }
 
     #headings ul {
-      padding-left: 12px;
-      border-left: 1px solid #555555;
+      padding-left: 16px;
+      border-left: 1px solid var(--headliner-neutral-color);
     }
 
     [class^="h"] {
-      padding: 0 6px;
-      color: var(--base-color);
+      padding: 3px 6px;
+      color: var(--headliner-base-color);
       cursor: pointer;
       transition: all 0.3s ease;
       border-radius: 4px;
@@ -74,12 +78,14 @@
       appearance: none; 
       list-style: none; 
       min-height: 1.75em; 
-      line-height: 1.75;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
       margin-left: 28px;
     }
 
     nav {
-      background-color: var(--neutral-color);
+      background-color: var(--headliner-neutral-color);
       color: white;
       width: 100%;
       height: 48px;
@@ -97,7 +103,7 @@
     }
 
     [class^="h"]:hover {
-      background-color: var(--neutral-color);
+      background-color: var(--headliner-neutral-color);
     }
 
     [class^="h"]::before {
@@ -107,77 +113,77 @@
       justify-content: center;
       align-items: center;
       left: -3px;
-      top: 50%;
+      top: 0;
       line-height: 1;
-      transform: translate(-100%, -50%);
+      transform: translateX(-100%);
       margin-right: 8px;
       font-weight: 600;
       pointer-events: none;
       cursor: default;
       border-radius: 4px;
-      color:var(--bg-color);
+      color:var(--headliner-bg-color);
       padding: 1px 4px;
-      border: 2px solid var(--bg-color);
+      border: 2px solid var(--headliner-bg-color);
     }
 
     .h1::before,
     #total-headings div.total-h1::before { 
-      background: color-mix(in srgb, var(--h1-color) 20%, transparent);
-      color: var(--h1-color);
+      background: color-mix(in srgb, var(--headliner-h1-color) 20%, transparent);
+      color: var(--headliner-h1-color);
       content: "H1"; 
     }
     .h2::before,
     #total-headings div.total-h2::before { 
-      background: color-mix(in srgb, var(--h2-color) 20%, transparent);
-      color: var(--h2-color);
+      background: color-mix(in srgb, var(--headliner-h2-color) 20%, transparent);
+      color: var(--headliner-h2-color);
       content: "H2"; 
     }
     .h3::before,
     #total-headings div.total-h3::before { 
-      background: color-mix(in srgb, var(--h3-color) 20%, transparent);
-      color: var(--h3-color);
+      background: color-mix(in srgb, var(--headliner-h3-color) 20%, transparent);
+      color: var(--headliner-h3-color);
       content: "H3"; 
     }
     .h4::before,
     #total-headings div.total-h4::before { 
-      background: color-mix(in srgb, var(--h4-color) 20%, transparent);
-      color: var(--h4-color);
+      background: color-mix(in srgb, var(--headliner-h4-color) 20%, transparent);
+      color: var(--headliner-h4-color);
       content: "H4"; 
     }
     .h5::before,
     #total-headings div.total-h5::before { 
-      background: color-mix(in srgb, var(--h5-color) 20%, transparent);
-      color: var(--h5-color);
+      background: color-mix(in srgb, var(--headliner-h5-color) 20%, transparent);
+      color: var(--headliner-h5-color);
       content: "H5"; 
     }
     .h6::before,
     #total-headings div.total-h6::before {
-      background: color-mix(in srgb, var(--h6-color) 20%, transparent);
-      color: var(--h6-color);
+      background: color-mix(in srgb, var(--headliner-h6-color) 20%, transparent);
+      color: var(--headliner-h6-color);
       content: "H6"; 
     }
     .h7::before,
     #total-headings div.total-h7::before { 
-      background: color-mix(in srgb, var(--h7-color) 20%, transparent);
-      color: var(--h7-color);
+      background: color-mix(in srgb, var(--headliner-h7-color) 20%, transparent);
+      color: var(--headliner-h7-color);
       content: "H7"; 
     }
     .h8::before,
     #total-headings div.total-h8::before { 
-      background: color-mix(in srgb, var(--h8-color) 20%, transparent);
-      color: var(--h8-color);
+      background: color-mix(in srgb, var(--headliner-h8-color) 20%, transparent);
+      color: var(--headliner-h8-color);
       content: "H8"; 
     }
     .h9::before,
     #total-headings div.total-h9::before {
-      background: color-mix(in srgb, var(--h9-color) 20%, transparent);
-      color: var(--h9-color);
+      background: color-mix(in srgb, var(--headliner-h9-color) 20%, transparent);
+      color: var(--headliner-h9-color);
       content: "H9"; 
     }
 
     #total-headings div:last-child::before {
-      background: color-mix(in srgb, var(--base-color) 20%, transparent);
-      color: var(--base-color);
+      background: color-mix(in srgb, var(--headliner-base-color) 20%, transparent);
+      color: var(--headliner-base-color);
       content: "Total"; 
     }
 
@@ -192,9 +198,9 @@
       pointer-events: none;
       cursor: default;
       border-radius: 4px;
-      color:var(--bg-color);
+      color:var(--headliner-bg-color);
       padding: 1px 4px;
-      border: 2px solid var(--bg-color);
+      border: 2px solid var(--headliner-bg-color);
       display: block;
     }
 
@@ -214,16 +220,16 @@
   </style>
 </head>
 <body>
-  <nav>
+  <!-- <nav>
     <ul>
       <li>Headliner</li>
       <li>JSON Viewer</li>
       <li>Form Prefiller</li>
     </ul>
-  </nav>
+  </nav> -->
   <main>
     <div id="total-headings"></div>
-    <h2>Page Headings</h2>
+    <h2>Page Headlines</h2>
     <ul id="headings"></ul>
   </main>
   <script src="sidepanel.js"></script>
