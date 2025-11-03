@@ -30,6 +30,10 @@
       list-style: none;
     }
 
+    section:not(:first-of-type) {
+      display: none;
+    }
+
     h1,
     h2,
     h3,
@@ -75,24 +79,67 @@
     nav ul {
       margin: 0;
       display: flex;
-      gap: 16px;
+      gap: 4px;
       align-items: center;
       height: 100%;
-      padding: 0 16px;
+      padding: 0 8px;
       appearance: none; 
-      list-style: none; 
+      list-style: none;
     }
 
-    #headings ul,
-    #headings {
+    nav ul li {
+      cursor: pointer;
+      padding: 8px 10px;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li:hover,
+    nav ul li.active {
+      background-color: rgba(255, 255, 255, 0.075);
+    }
+
+    
+
+    nav ul li span.warning-hint {
+      margin-left: 4px;
+      background-color: color-mix(in srgb, var(--headliner-warning-color) 20%, transparent);
+      color: var(--headliner-warning-color);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    nav ul li span.error-hint {
+      margin-left: 4px;
+      background-color: color-mix(in srgb, var(--headliner-error-color) 20%, transparent);
+      color: var(--headliner-error-color);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    nav ul li span:first-of-type {
+      margin-left: 8px;
+    }
+
+    #tree {
+      margin-left: 5px;
+    }
+
+    #tree ul,
+    #tree {
       border-left: 1px solid var(--headliner-neutral-color);
     }
 
-    #headings ul {
+    #tree ul {
         margin-left: 16px;
     }
 
-    [class^="h"] {
+    #tree li {
       padding: 3px 6px;
       color: var(--headliner-base-color);
       cursor: pointer;
@@ -108,11 +155,11 @@
       min-height: 27px;
     }
 
-    [class^="h"]:hover {
+    #tree li:hover {
       background-color: var(--headliner-neutral-color);
     }
 
-    [class^="h"]::before {
+    #tree li::before {
       position: absolute;
       display: inline-flex !important;
       justify-content: center;
@@ -132,50 +179,50 @@
       border: 3px solid var(--headliner-bg-color);
     }
 
-    .h1::before,
-    #total-headings div.total-h1::before { 
+    #tree li.h1::before,
+    #summary div.total-h1::before { 
       background: color-mix(in srgb, var(--headliner-h1-color) 20%, var(--headliner-bg-color));
       color: var(--headliner-h1-color);
       content: "H1"; 
     }
-    .h2::before,
-    #total-headings div.total-h2::before { 
+    #tree li.h2::before,
+    #summary div.total-h2::before { 
       background: color-mix(in srgb, var(--headliner-h2-color) 20%, var(--headliner-bg-color));
       color: var(--headliner-h2-color);
       content: "H2"; 
     }
-    .h3::before,
-    #total-headings div.total-h3::before { 
+    #tree li.h3::before,
+    #summary div.total-h3::before { 
       background: color-mix(in srgb, var(--headliner-h3-color) 20%, var(--headliner-bg-color));
       color: var(--headliner-h3-color);
       content: "H3"; 
     }
-    .h4::before,
-    #total-headings div.total-h4::before { 
+    #tree li.h4::before,
+    #summary div.total-h4::before { 
       background: color-mix(in srgb, var(--headliner-h4-color) 20%, var(--headliner-bg-color));
       color: var(--headliner-h4-color);
       content: "H4"; 
     }
-    .h5::before,
-    #total-headings div.total-h5::before { 
+    #tree li.h5::before,
+    #summary div.total-h5::before { 
       background: color-mix(in srgb, var(--headliner-h5-color) 20%, var(--headliner-bg-color));
       color: var(--headliner-h5-color);
       content: "H5"; 
     }
-    .h6::before,
-    #total-headings div.total-h6::before {
+    #tree li.h6::before,
+    #summary div.total-h6::before {
       background: color-mix(in srgb, var(--headliner-h6-color) 20%, var(--headliner-bg-color));
       color: var(--headliner-h6-color);
       content: "H6"; 
     }
 
-    #total-headings div:last-child::before {
+    #summary div:last-child::before {
       background: color-mix(in srgb, var(--headliner-base-color) 20%, var(--headliner-bg-color));
       color: var(--headliner-base-color);
       content: "Total"; 
     }
 
-    #total-headings div::before {
+    #summary div::before {
       display: inline-flex !important;
       justify-content: center;
       align-items: center;
@@ -189,13 +236,13 @@
       border: 3px solid var(--headliner-bg-color);
     }
 
-    #total-headings div {
+    #summary div {
       position: relative;
       min-height: 1.75em; 
       line-height: 1.75;
     }
 
-    #total-headings {
+    #summary {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
@@ -242,8 +289,4 @@
       content: "Success";
       margin-right: 6px;
       font-weight: 600;
-    }
-
-    #issues {
-      margin-bottom: 16px;
     }

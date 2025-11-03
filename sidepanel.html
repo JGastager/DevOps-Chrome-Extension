@@ -5,24 +5,27 @@
   <link rel="stylesheet" href="sidepanel.css">
 </head>
 <body>
-  <!-- <nav>
+  <nav>
     <ul>
-      <li>Headliner</li>
-      <li>JSON Viewer</li>
-      <li>Form Prefiller</li>
+      <li class="headlines active">Headlines</li>
+      <li class="outlining">Outlining</li>
+      <li class="issues">Issues</li>
     </ul>
-  </nav> -->
+  </nav>
   <main>
-    <h2>Summary</h2>
-    <div id="total-headings"></div>
-    <h2>Issues</h2>
-    <div id="issues">
+    <section id="headlines">
+      <div id="summary"></div>
+      <ul id="tree"></ul>
+    </section>
+    <section id="outlining">
+
+    </section>
+    <section id="issues">
       <ul id="errors"></ul> 
       <ul id="warnings"></ul>
       <ul id="success"></ul>
-    </div>
-    <h2>Headings Tree</h2>
-    <ul id="headings"></ul>
+    </section>
+    
   </main>
   <script src="sidepanel.js"></script>
 </body>
