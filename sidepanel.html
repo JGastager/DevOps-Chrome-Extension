@@ -18,6 +18,11 @@
       --headliner-h7-color: #f59e0b;
       --headliner-h8-color: #f97316;
       --headliner-h9-color: #dc2626;
+
+      --headliner-error-color: #ef4444;
+      --headliner-warning-color: #fbbf24;
+      --headliner-info-color: #3b82f6;
+      --headliner-success-color: #10b981;
     }
 
     * {
@@ -34,7 +39,7 @@
     h2,
     h3,
     h4 {
-      margin-bottom: 1.5rem;
+      margin-bottom: 16px;
     }
 
     html {
@@ -219,6 +224,52 @@
       margin-bottom: 16px;
     }
 
+    #errors li {
+      background: color-mix(in srgb, var(--headliner-error-color) 20%, transparent);
+      border-radius: 4px;
+      color: var(--headliner-error-color);
+      padding: 6px 8px;
+      margin-bottom: 8px;
+    }
+
+    #errors li::before {
+      content: "Error";
+      margin-right: 6px;
+      font-weight: 600;
+    }
+
+    #warnings li {
+      background: color-mix(in srgb, var(--headliner-warning-color) 20%, transparent);
+      border-radius: 4px;
+      color: var(--headliner-warning-color);
+      padding: 6px 8px;
+      margin-bottom: 8px;
+    }
+
+    #warnings li::before {
+      content: "Warning";
+      margin-right: 6px;
+      font-weight: 600;
+    }
+
+    #success li {
+      background: color-mix(in srgb, var(--headliner-success-color) 20%, transparent);
+      border-radius: 4px;
+      color: var(--headliner-success-color);
+      padding: 6px 8px;
+      margin-bottom: 8px;
+    }
+
+    #success li::before {
+      content: "Success";
+      margin-right: 6px;
+      font-weight: 600;
+    }
+
+    #issues {
+      margin-bottom: 16px;
+    }
+
   </style>
 </head>
 <body>
@@ -230,8 +281,15 @@
     </ul>
   </nav> -->
   <main>
+    <h2>Summary</h2>
     <div id="total-headings"></div>
-    <h2>Page Headlines</h2>
+    <h2>Issues</h2>
+    <div id="issues">
+      <ul id="errors"></ul> 
+      <ul id="warnings"></ul>
+      <ul id="success"></ul>
+    </div>
+    <h2>Headings Tree</h2>
     <ul id="headings"></ul>
   </main>
   <script src="sidepanel.js"></script>

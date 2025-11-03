@@ -1,4 +1,5 @@
 chrome.runtime.onMessage.addListener((message) => {
+  
   if (message.action === "goToHeading") {
     const headings = Array.from(document.body.querySelectorAll('h1, h2, h3, h4, h5, h6'));
     const el = headings[message.index];
@@ -27,3 +28,9 @@ chrome.runtime.onMessage.addListener((message) => {
     }, 2000);
   }
 });
+
+const observer = new MutationObserver(() => {
+  chrome.runtime.sendMessage({ action: "refreshHeadlines" });
+});
+
+observer.observe(document.body, { childList: true, subtree: true });
