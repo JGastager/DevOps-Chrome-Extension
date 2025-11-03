@@ -29,8 +29,34 @@ chrome.runtime.onMessage.addListener((message) => {
   }
 });
 
-const observer = new MutationObserver(() => {
-  chrome.runtime.sendMessage({ action: "refreshHeadlines" });
+let updateTimeout = null;
+let lastUpdate = 0;
+
+const THROTTLE_MS = 1500; // adjust as needed
+
+function requestHeadlineUpdate() {
+  const now = Date.now();
+
+  // Prevent too frequent updates
+  if (now - lastUpdate < THROTTLE_MS) {
+    clearTimeout(updateTimeout);
+  }
+
+  updateTimeout = setTimeout(() => {
+    lastUpdate = Date.now();
+    chrome.runtime.sendMessage({ action: "refreshHeadlines" });
+  }, THROTTLE_MS);
+}
+
+const observer = new MutationObserver((mutations) => {
+  // Filter out irrelevant changes if needed later
+
+  requestHeadlineUpdate();
 });
 
-observer.observe(document.body, { childList: true, subtree: true });
+observer.observe(document.body, {
+  childList: true,
+  subtree: true,
+  characterData: true
+});
+

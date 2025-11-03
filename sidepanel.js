@@ -133,6 +133,7 @@ function addWarning(type, message) {
 }
 
 function updateHeadlines() {
+  console.info("Updating headlines in side panel...");
   chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
