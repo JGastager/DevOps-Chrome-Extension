@@ -5,15 +5,12 @@
       --headliner-bg-color: #171717;
       --headliner-base-color: #f0f0f0;
       --headliner-neutral-color: #313131;
-      --headliner-h1-color: #6366f1;
+      --headliner-h1-color: #6b6dfa;
       --headliner-h2-color: #0ea5e9;
       --headliner-h3-color: #14b8a6;
       --headliner-h4-color: #22c55e;
       --headliner-h5-color: #84cc16;
-      --headliner-h6-color: #eab308;
-      --headliner-h7-color: #f59e0b;
-      --headliner-h8-color: #f97316;
-      --headliner-h9-color: #dc2626;
+      --headliner-h6-color: #facc15;
 
       --headliner-error-color: #ef4444;
       --headliner-warning-color: #fbbf24;
@@ -169,24 +166,6 @@
       background: color-mix(in srgb, var(--headliner-h6-color) 20%, var(--headliner-bg-color));
       color: var(--headliner-h6-color);
       content: "H6"; 
-    }
-    .h7::before,
-    #total-headings div.total-h7::before { 
-      background: color-mix(in srgb, var(--headliner-h7-color) 20%, var(--headliner-bg-color));
-      color: var(--headliner-h7-color);
-      content: "H7"; 
-    }
-    .h8::before,
-    #total-headings div.total-h8::before { 
-      background: color-mix(in srgb, var(--headliner-h8-color) 20%, var(--headliner-bg-color));
-      color: var(--headliner-h8-color);
-      content: "H8"; 
-    }
-    .h9::before,
-    #total-headings div.total-h9::before {
-      background: color-mix(in srgb, var(--headliner-h9-color) 20%, var(--headliner-bg-color));
-      color: var(--headliner-h9-color);
-      content: "H9"; 
     }
 
     #total-headings div:last-child::before {

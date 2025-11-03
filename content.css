@@ -1,15 +1,12 @@
 :root {
     --headliner-base-color: #171717;
     --headliner-neutral-color: #d5d8db;
-    --headliner-h1-color: #6366f1;
+    --headliner-h1-color: #6b6dfa;
     --headliner-h2-color: #0ea5e9;
     --headliner-h3-color: #14b8a6;
     --headliner-h4-color: #22c55e;
     --headliner-h5-color: #84cc16;
-    --headliner-h6-color: #eab308;
-    --headliner-h7-color: #f59e0b;
-    --headliner-h8-color: #f97316;
-    --headliner-h9-color: #dc2626;
+    --headliner-h6-color: #facc15;
     --headliner-highlight-color: var(--headliner-neutral-color);
 }
 
