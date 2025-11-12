@@ -12,15 +12,13 @@
   --headliner-h5-color: #84cc16;
   --headliner-h6-color: #facc15;
 
-  --headliner-body-color: #eab308;
-  --headliner-section-color: #f97316;
-  --headliner-nav-color: #f43f5e;
-  --headliner-main-color: #8b5cf6;
-  --headliner-article-color: #d97706;
-  --headliner-aside-color: #10b981;
-  --headliner-footer-color: #3b82f6;
-  --headliner-address-color: #ec4899;
-  --headliner-header-color: #22d3ee;
+  --headliner-level1-color: #956bf8;
+  --headliner-level2-color: #c256f5;
+  --headliner-level3-color: #e947b0;
+  --headliner-level4-color: #ee4141;
+  --headliner-level5-color: #d96c06;
+  --headliner-level6-color: #fba524;
+  --headliner-level7-color: #eab308;
 
   --headliner-error-color: #ef4444;
   --headliner-warning-color: #fbbf24;
@@ -73,9 +71,9 @@ main {
   background: var(--headliner-bg-color); 
   border-radius: 4px;
   overflow-y: auto;
-  height: 100%;
+  /* height: 100%; */
 
-  /* height: calc(100% - 48px); */
+  height: calc(100% - 48px);
   /* border: 1px solid #555555; */
 }
 
@@ -236,59 +234,76 @@ nav ul li span:first-of-type {
 
 .tree li.body::before,
 .summary div.total-body::before {
-  background: color-mix(in srgb, var(--headliner-body-color) 20%, var(--headliner-bg-color));
-  color: var(--headliner-body-color);
   content: "body"; 
 }
 .tree li.section::before,
 .summary div.total-section::before {
-  background: color-mix(in srgb, var(--headliner-section-color) 20%, var(--headliner-bg-color));
-  color: var(--headliner-section-color);
   content: "section"; 
 }
 .tree li.nav::before,
 .summary div.total-nav::before {
-  background: color-mix(in srgb, var(--headliner-nav-color) 20%, var(--headliner-bg-color));
-  color: var(--headliner-nav-color);
   content: "nav"; 
 }
 .tree li.main::before,
 .summary div.total-main::before {
-  background: color-mix(in srgb, var(--headliner-main-color) 20%, var(--headliner-bg-color));
-  color: var(--headliner-main-color);
   content: "main"; 
 }
 .tree li.article::before,
 .summary div.total-article::before {
-  background: color-mix(in srgb, var(--headliner-article-color) 20%, var(--headliner-bg-color));
-  color: var(--headliner-article-color);
   content: "article"; 
 }
 .tree li.aside::before,
 .summary div.total-aside::before {
-  background: color-mix(in srgb, var(--headliner-aside-color) 20%, var(--headliner-bg-color));
-  color: var(--headliner-aside-color);
   content: "aside"; 
 }
 .tree li.footer::before,
 .summary div.total-footer::before {
-  background: color-mix(in srgb, var(--headliner-footer-color) 20%, var(--headliner-bg-color));
-  color: var(--headliner-footer-color);
   content: "footer"; 
 }
 .tree li.address::before,
 .summary div.total-address::before {
-  background: color-mix(in srgb, var(--headliner-address-color) 20%, var(--headliner-bg-color));
-  color: var(--headliner-address-color);
   content: "address"; 
 }
 .tree li.header::before,
 .summary div.total-header::before {
-  background: color-mix(in srgb, var(--headliner-header-color) 20%, var(--headliner-bg-color));
-  color: var(--headliner-header-color);
   content: "header"; 
 }
 
+
+#outlining .tree li::before {
+  background: color-mix(in srgb, var(--headliner-level1-color) 20%, var(--headliner-bg-color));
+  color: var(--headliner-level1-color);
+}
+
+#outlining .tree ul li::before {
+  background: color-mix(in srgb, var(--headliner-level2-color) 20%, var(--headliner-bg-color));
+  color: var(--headliner-level2-color);
+}
+
+#outlining .tree ul ul li::before {
+  background: color-mix(in srgb, var(--headliner-level3-color) 20%, var(--headliner-bg-color));
+  color: var(--headliner-level3-color);
+}
+
+#outlining .tree ul ul ul li::before {
+  background: color-mix(in srgb, var(--headliner-level4-color) 20%, var(--headliner-bg-color));
+  color: var(--headliner-level4-color);
+}
+
+#outlining .tree ul ul ul ul li::before {
+  background: color-mix(in srgb, var(--headliner-level5-color) 20%, var(--headliner-bg-color));
+  color: var(--headliner-level5-color);
+}
+
+#outlining .tree ul ul ul ul ul li::before {
+  background: color-mix(in srgb, var(--headliner-level6-color) 20%, var(--headliner-bg-color));
+  color: var(--headliner-level6-color);
+}
+
+#outlining .tree ul ul ul ul ul ul li::before {
+  background: color-mix(in srgb, var(--headliner-level7-color) 20%, var(--headliner-bg-color));
+  color: var(--headliner-level7-color);
+}
 
 .summary div:last-child::before {
   background: color-mix(in srgb, var(--headliner-base-color) 20%, var(--headliner-bg-color));
