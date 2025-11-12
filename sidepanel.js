@@ -6,6 +6,114 @@ function extractOrderedHeadlines() {
     }));
 }
 
+function extractOutline() {
+// All valid HTML5 sectioning elements
+const SECTIONING = new Set([
+    'ARTICLE',
+    'ASIDE',
+    'NAV',
+    'SECTION',
+    'MAIN',
+    'BODY',
+    'HEADER',
+    'FOOTER',
+    'ADDRESS'
+]);
+  const HEADING   = new Set(['H1','H2','H3','H4','H5','H6']);
+
+  // Section node: { type:'section', tag, heading:null|{tag,text,children:[]}, children:[] }
+  // Heading node: { type:'heading', tag:'H2', text, level:2, children:[] }
+
+  const root = { type:'section', tag:'ROOT', heading:null, children:[], _stack:[] };
+
+  function withSection(fn, section) {
+    const prev = currentSection;
+    currentSection = section;
+    fn();
+    currentSection = prev;
+  }
+
+  function addHeadingToSection(section, headingNode) {
+    // Maintain a heading stack per section to nest H1–H6 correctly
+    if (!section._stack) section._stack = [];
+    const stack = section._stack;
+
+    const level = headingNode.level;
+
+    // First heading in a section becomes its "title" (but children nest under it)
+    if (!section.heading) {
+      section.heading = headingNode;
+      stack.length = 1;
+      stack[0] = headingNode;
+      return;
+    }
+
+    // Otherwise place by level relative to stack
+    while (stack.length && level <= stack[stack.length - 1].level) {
+      stack.pop();
+    }
+    if (stack.length === 0) {
+      // Sibling of the section title
+      section.children.push(headingNode);
+      stack.push(headingNode);
+    } else {
+      // Child of the last heading in stack
+      stack[stack.length - 1].children.push(headingNode);
+      stack.push(headingNode);
+    }
+  }
+
+  let currentSection = root;
+
+  function walk(node) {
+    if (node.nodeType !== 1) return; // element only
+    const tag = node.tagName;
+
+    if (SECTIONING.has(tag)) {
+      const section = { type:'section', tag, heading:null, children:[], _stack:[] };
+      currentSection.children.push(section);
+      withSection(() => {
+        // Traverse the inside of this section
+        for (let child of node.children) {
+          walk(child);
+        }
+      }, section);
+      return;
+    }
+
+    if (HEADING.has(tag)) {
+      const headingNode = {
+        type:'heading',
+        tag,
+        text: node.textContent.trim(),
+        level: parseInt(tag[1], 10),
+        children: []
+      };
+      addHeadingToSection(currentSection, headingNode);
+      return;
+    }
+
+    // Recurse through other elements
+    for (let child of node.children) {
+      walk(child);
+    }
+  }
+
+  walk(document.body);
+
+  // Clean internal stacks before returning
+  const strip = (n) => {
+    delete n._stack;
+    if (n.children) n.children.forEach(strip);
+    if (n.heading) strip(n.heading);
+    return n;
+  };
+  return strip(root).children;
+}
+
+
+
+
 function renderHeadlines(list, headings) {
     list.innerHTML = '';
     if (headings.length === 0) return;
@@ -18,7 +126,7 @@ function renderHeadlines(list, headings) {
     });
 
     // Render total headlines per level
-    const totalHeadings = document.getElementById('summary');
+    const totalHeadings = document.querySelector('#headlines .summary');
     totalHeadings.innerHTML = '';
     Object.keys(levelCounts).sort((a, b) => a - b).forEach(level => {
         const div = document.createElement('div');
@@ -67,6 +175,99 @@ function renderHeadlines(list, headings) {
     });
 }
 
+function renderOutline(list, outline) {
+    list.innerHTML = '';
+    if (!outline || outline.length === 0) return;
+
+    let currentLevel = 1;
+    let parents = [list];
+
+    // flatten the outline tree into a linear list with pseudo-levels
+    function flatten(nodes, level = 1, arr = []) {
+        nodes.forEach(node => {
+            // determine label text
+            const label = node.heading
+                ? `${node.heading.text} (${node.heading.tag} in <${node.tag.toLowerCase()}>)`
+                : node.text
+                    ? `${node.text} (${node.tag})`
+                    : `untitled`;
+
+            // determine which tag name to use as class
+            const tagClass = node.type === 'section'
+                ? node.tag.toLowerCase()
+                : node.tag.toLowerCase();
+
+            // Only mark empty if it's a sectioning element without a heading
+            const SECTIONING = new Set([
+                'ARTICLE',
+                'ASIDE',
+                'NAV',
+                'SECTION',
+                'MAIN',
+                'BODY',
+                'HEADER',
+                'FOOTER',
+                'ADDRESS'
+            ]);
+            const empty = node.type === 'section' && !node.heading && SECTIONING.has(node.tag);
+
+            arr.push({
+                text: label,
+                tagClass,
+                level,
+                empty
+            });
+
+            // collect children
+            const children = [];
+            if (node.type === 'section') {
+                if (node.heading?.children?.length) children.push(...node.heading.children);
+                if (node.children?.length) children.push(...node.children);
+            } else if (node.type === 'heading' && node.children?.length) {
+                children.push(...node.children);
+            }
+
+            if (children.length > 0) flatten(children, level + 1, arr);
+        });
+        return arr;
+    }
+
+    const flat = flatten(outline);
+
+    // render just like headlines
+    flat.forEach((item) => {
+        const level = item.level;
+
+        while (level > currentLevel) {
+            const ul = document.createElement('ul');
+            parents[parents.length - 1].appendChild(ul);
+            parents.push(ul);
+            currentLevel++;
+        }
+        while (level < currentLevel) {
+            parents.pop();
+            currentLevel--;
+        }
+
+        const li = document.createElement('li');
+        li.textContent = item.text;
+        li.classList.add(item.tagClass);
+        if (item.empty) {
+            li.classList.add('empty');
+        }
+        parents[parents.length - 1].appendChild(li);
+    });
+}
+
+
+
+
+
+
+
+
+
+
 const headlineOptions = {
     multipleH1: true,
     noH1: true,
@@ -75,9 +276,9 @@ const headlineOptions = {
 
 function checkWarnings(headings) {
     // Clear previous warnings/errors/success
-    document.getElementById('warnings').innerHTML = '';
-    document.getElementById('errors').innerHTML = '';
-    document.getElementById('success').innerHTML = '';
+    document.querySelector('#issues .warnings').innerHTML = '';
+    document.querySelector('#issues .errors').innerHTML = '';
+    document.querySelector('#issues .success').innerHTML = '';
     const issuesNav = document.querySelector('nav .issues');
     if (issuesNav) {
         Array.from(issuesNav.querySelectorAll('span')).forEach(span => span.remove());
@@ -149,38 +350,47 @@ function addWarning(type, message) {
     }
 }
 
+updateHeadlines();
+
 function updateHeadlines() {
-    console.info("Updating headlines in side panel...");
-    chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
-        chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            func: () => {
-                return new Promise(resolve => {
-                    if (document.readyState === "complete") {
-                        resolve(true);
-                    } else {
-                        window.addEventListener("load", () => resolve(true), { once: true });
-                    }
-                });
-            }
-        }).then(() => {
-            // Now the DOM is truly ready — extract headlines
-            chrome.scripting.executeScript({
-                target: { tabId: tab.id },
-                func: extractOrderedHeadlines,
-            }).then(([result]) => {
-                const list = document.getElementById('tree');
-                renderHeadlines(list, result.result);
-                checkWarnings(result.result);
-            }).catch(() => {
-                document.getElementById('tree').innerHTML =
-                    '<li>Could not read headlines from this tab.</li>';
-            });
+  console.info("Updating headlines and outline in side panel...");
+  chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: () => {
+        return new Promise(resolve => {
+          if (document.readyState === "complete") resolve(true);
+          else window.addEventListener("load", () => resolve(true), { once: true });
         });
+      }
+    }).then(() => {
+      // --- Extract headlines ---
+      chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: extractOrderedHeadlines,
+      }).then(([result]) => {
+        const headlinesSection = document.querySelector('#headlines');
+        const list = headlinesSection.querySelector('.tree');
+        renderHeadlines(list, result.result);
+        checkWarnings(result.result);
+
+        // --- Extract structural outline ---
+        chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          func: extractOutline
+        }).then(([outlineResult]) => {
+          const outlineSection = document.querySelector('#outlining');
+          const outlineList = outlineSection.querySelector('.tree');
+          renderOutline(outlineList, outlineResult.result);
+        });
+      }).catch(() => {
+        document.querySelector('#headlines .tree').innerHTML =
+          '<li>Could not read headlines from this tab.</li>';
+      });
     });
+  });
 }
 
-updateHeadlines();
 
 chrome.runtime.onMessage.addListener((message) => {
     if (message.action === "refreshHeadlines") {
