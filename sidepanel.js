@@ -14,8 +14,6 @@ const SECTIONING = new Set([
     'NAV',
     'SECTION',
     'MAIN',
-    'BODY',
-    'HEADER',
     'FOOTER',
     'ADDRESS'
 ]);
@@ -159,8 +157,11 @@ function renderHeadlines(list, headings) {
         }
 
         const li = document.createElement('li');
-        li.textContent = h.text
+        li.textContent = h.text ? h.text : `untitled`;
         li.classList.add(h.tag.toLowerCase());
+        if (!h.text) {
+            li.classList.add('empty');
+        }
 
         li.addEventListener('click', () => {
             chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
@@ -186,30 +187,11 @@ function renderOutline(list, outline) {
     function flatten(nodes, level = 1, arr = []) {
         nodes.forEach(node => {
             // determine label text
-            const label = node.heading
-                ? `${node.heading.text} (${node.heading.tag} in <${node.tag.toLowerCase()}>)`
-                : node.text
-                    ? `${node.text} (${node.tag})`
-                    : `untitled`;
+            const label = node.heading ? `${node.heading.text} (${node.heading.tag} in <${node.tag.toLowerCase()}>)` : node.text ? `${node.text} (${node.tag})` : `untitled`;
 
-            // determine which tag name to use as class
-            const tagClass = node.type === 'section'
-                ? node.tag.toLowerCase()
-                : node.tag.toLowerCase();
+            const tagClass = node.tag.toLowerCase();
 
-            // Only mark empty if it's a sectioning element without a heading
-            const SECTIONING = new Set([
-                'ARTICLE',
-                'ASIDE',
-                'NAV',
-                'SECTION',
-                'MAIN',
-                'BODY',
-                'HEADER',
-                'FOOTER',
-                'ADDRESS'
-            ]);
-            const empty = node.type === 'section' && !node.heading && SECTIONING.has(node.tag);
+            const empty = !node.heading && !node.text;
 
             arr.push({
                 text: label,
